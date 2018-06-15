@@ -10,6 +10,7 @@ import static io.restassured.RestAssured.*;
 public class MarsPhotosEndpoint {
 
     // TODO: add path param for a rover
+    // TODO: user api key
 
     private String endpoint = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos";
 

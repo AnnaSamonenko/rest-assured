@@ -11,8 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class CuriosityTest {
     private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
 
-    // TODO: add fail message
-
     @Test
     public void verifyImagesMadeByCuriosity() {
         String dirForPhotosWithEarthDate = PropertyReader.getProperty("dirForPhotosWithEarthDate");
@@ -25,7 +23,7 @@ public class CuriosityTest {
         Helper.downloadPictures(dirForPhotosWithSol,
                 marsPhotosSteps.getListOfUrls(sol, numberOfPhotos));
 
-        assertEquals(marsPhotosSteps.getPhoto(Converter.getEarthDate(sol), numberOfPhotos).toString(),
+        assertEquals("Metadata from the endpoint is different but should be similar",marsPhotosSteps.getPhoto(Converter.getEarthDate(sol), numberOfPhotos).toString(),
                 marsPhotosSteps.getPhoto(sol, numberOfPhotos).toString());
     }
 

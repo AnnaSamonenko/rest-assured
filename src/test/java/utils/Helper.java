@@ -25,7 +25,6 @@ public class Helper {
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
-
     }
 
     private static String parseUrl(String imageUrl) throws Exception {
