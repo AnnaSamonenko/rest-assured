@@ -1,10 +1,13 @@
 package dto;
 
+import lombok.Getter;
+
 public class Camera {
-    String id;
-    String name;
-    String rover_id;
-    String full_name;
+    private String id;
+    @Getter
+    private String name;
+    private String rover_id;
+    private String full_name;
 
     @Override
     public String toString() {

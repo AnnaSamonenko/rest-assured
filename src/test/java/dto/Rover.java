@@ -3,15 +3,15 @@ package dto;
 import java.util.List;
 
 public class Rover {
-    String id;
-    String name;
-    String landing_date;
-    String launch_date;
-    String status;
-    Integer max_sol;
-    String max_date;
-    Integer total_photos;
-    List<Cameras> cameras;
+    private String id;
+    private String name;
+    private String landing_date;
+    private String launch_date;
+    private String status;
+    private Integer max_sol;
+    private String max_date;
+    private Integer total_photos;
+    private List<Cameras> cameras;
 
     @Override
     public String toString() {

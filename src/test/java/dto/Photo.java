@@ -1,13 +1,16 @@
 package dto;
 
+import lombok.Getter;
 
 public class Photo {
-    long id;
-    int sol;
-    String img_src;
-    String earth_date;
-    Camera camera;
-    Rover rover;
+    private long id;
+    private int sol;
+    @Getter
+    private String img_src;
+    private String earth_date;
+    @Getter
+    private Camera camera;
+    private Rover rover;
 
     @Override
     public String toString() {
@@ -20,9 +23,4 @@ public class Photo {
                 ", rover=" + rover +
                 '}';
     }
-
-    public String getImg_src() {
-        return img_src;
-    }
-
 }

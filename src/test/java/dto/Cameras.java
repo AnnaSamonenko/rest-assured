@@ -1,8 +1,8 @@
 package dto;
 
 public class Cameras {
-    String name;
-    String full_name;
+    private String name;
+    private String full_name;
 
     @Override
     public String toString() {
