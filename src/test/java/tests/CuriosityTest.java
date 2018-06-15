@@ -18,7 +18,7 @@ public class CuriosityTest {
     @Test
     public void verifyImagesMadeByCuriosity() throws Exception {
         String dirForPhotosWithEarthDate = PropertyReader.getProperty("dirForPhotosWithEarthDate");
-        int numberOfPhotos = 10;
+        int numberOfPhotos = Integer.valueOf(PropertyReader.getProperty("amount"));
         String dirForPhotosWithSol = PropertyReader.getProperty("photosSol");
         int sol = Integer.valueOf(PropertyReader.getProperty("sol"));
 
@@ -32,7 +32,7 @@ public class CuriosityTest {
     }
 
     @Test
-    public void testAmountOfPhotos() throws Exception {
+    public void testAmountOfPhotos() {
         int sol = Integer.valueOf(PropertyReader.getProperty("sol"));
 
         List<Integer> amount = new ArrayList<>(marsPhotosSteps.getAmountOfPhotosInOrder(sol).values());
