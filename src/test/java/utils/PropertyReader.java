@@ -7,6 +7,8 @@ import java.util.Properties;
 
 public class PropertyReader {
 
+    // TODO: use singleton pattern
+
     private static Properties properties = new Properties();
 
     public static String getProperty(final String property) {

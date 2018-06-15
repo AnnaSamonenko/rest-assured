@@ -41,7 +41,7 @@ public class MarsPhotosSteps {
     }
 
     private Map<String, Integer> amountOfPhotosByCameras(int sol) {
-        List<Camera> cameras = getPhoto(1000)
+        List<Camera> cameras = getPhoto(sol)
                 .stream()
                 .map(Photo::getCamera)
                 .collect(Collectors.toList());

@@ -6,17 +6,15 @@ import utils.Converter;
 import utils.Helper;
 import utils.PropertyReader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CuriosityTest {
     private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
 
+    // TODO: add fail message
+
     @Test
-    public void verifyImagesMadeByCuriosity() throws Exception {
+    public void verifyImagesMadeByCuriosity() {
         String dirForPhotosWithEarthDate = PropertyReader.getProperty("dirForPhotosWithEarthDate");
         int numberOfPhotos = Integer.valueOf(PropertyReader.getProperty("amount"));
         String dirForPhotosWithSol = PropertyReader.getProperty("photosSol");
@@ -29,14 +27,6 @@ public class CuriosityTest {
 
         assertEquals(marsPhotosSteps.getPhoto(Converter.getEarthDate(sol), numberOfPhotos).toString(),
                 marsPhotosSteps.getPhoto(sol, numberOfPhotos).toString());
-    }
-
-    @Test
-    public void testAmountOfPhotos() {
-        int sol = Integer.valueOf(PropertyReader.getProperty("sol"));
-
-        List<Integer> amount = new ArrayList<>(marsPhotosSteps.getAmountOfPhotosInOrder(sol).values());
-        assertTrue(10 * amount.get(0) > amount.get(amount.size() - 1));
     }
 
 }
