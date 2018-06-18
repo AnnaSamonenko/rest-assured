@@ -4,15 +4,15 @@ import java.io.*;
 import java.net.URL;
 import java.util.List;
 
-public class Helper {
+public class Downloader {
 
-    public static void downloadPictures(String folder, List<String> URLs) {
+    public static void downloadPictures(final String folder, final List<String> URLs) {
         createDir(folder);
         for (String s : URLs)
             downloadPicture(folder, s);
     }
 
-    private static void downloadPicture(String folder, String imageUrl) {
+    private static void downloadPicture(final String folder, final String imageUrl) {
         try (InputStream is = new URL(imageUrl).openStream();
              OutputStream os = new FileOutputStream(folder + "/" + parseUrl(imageUrl))) {
 
@@ -27,14 +27,14 @@ public class Helper {
         }
     }
 
-    private static String parseUrl(String imageUrl) throws Exception {
+    private static String parseUrl(final String imageUrl) throws Exception {
         URL url = new URL(imageUrl);
         String urlFile = url.getFile();
         String[] urlFileList = urlFile.split("/");
         return urlFileList[urlFileList.length - 1];
     }
 
-    private static void createDir(String dirName) {
+    private static void createDir(final String dirName) {
         new File(dirName).mkdir();
     }
 

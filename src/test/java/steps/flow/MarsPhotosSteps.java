@@ -11,28 +11,28 @@ public class MarsPhotosSteps {
 
     private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
 
-    private List<Photo> getPhoto(int sol) {
+    private List<Photo> getPhoto(final int sol) {
         return endpoint.marsPhotosEndpointWithSol(sol).stream().collect(Collectors.toList());
     }
 
-    public List<Photo> getPhoto(String date, int amount) {
+    public List<Photo> getPhoto(final String date, final int amount) {
         return endpoint.marsPhotosEndpointWithEarthDate(date).stream().limit(amount).collect(Collectors.toList());
     }
 
-    public List<Photo> getPhoto(int sol, int amount) {
+    public List<Photo> getPhoto(final int sol, final int amount) {
         return endpoint.marsPhotosEndpointWithSol(sol).stream().limit(amount).collect(Collectors.toList());
     }
 
-    public List<String> getListOfUrls(int sol, int amount){
+    public List<String> getListOfUrls(final int sol, final int amount) {
         return getPhoto(sol, amount).stream().limit(amount).map(Photo::getImg_src).collect(Collectors.toList());
     }
 
-    public List<String> getListOfUrls(String date, int amount){
+    public List<String> getListOfUrls(final String date, final int amount) {
         return getPhoto(date, amount).stream().limit(amount).map(Photo::getImg_src).collect(Collectors.toList());
     }
 
-    public Map<String, Integer> getAmountOfPhotosInOrder(int sol){
-        Map<String, Integer> result = amountOfPhotosByCameras(sol).entrySet().stream()
+    public Map<String, Integer> getAmountOfPhotosInOrder(final int sol) {
+        Map<String, Integer> result = getAmountOfPhotosByCameras(sol).entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
@@ -40,7 +40,7 @@ public class MarsPhotosSteps {
         return result;
     }
 
-    private Map<String, Integer> amountOfPhotosByCameras(int sol) {
+    private Map<String, Integer> getAmountOfPhotosByCameras(final int sol) {
         List<Camera> cameras = getPhoto(sol)
                 .stream()
                 .map(Photo::getCamera)

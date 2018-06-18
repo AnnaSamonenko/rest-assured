@@ -1,4 +1,4 @@
-package steps.business;//package steps;
+//package steps.business;
 //
 //import org.junit.Test;
 //import steps.flow.MarsPhotosSteps;
@@ -9,7 +9,7 @@ package steps.business;//package steps;
 //
 //import static org.junit.Assert.assertTrue;
 //
-//public class CameraTest {
+//public class CameraDefinitionSteps {
 //
 //    private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
 //
@@ -19,7 +19,8 @@ package steps.business;//package steps;
 //    public void testAmountOfPhotos() {
 //        int sol = Integer.valueOf(PropertyReader.getProperty("sol"));
 //        List<Integer> amount = new ArrayList<>(marsPhotosSteps.getAmountOfPhotosInOrder(sol).values());
-//        assertTrue("One of camera do in 10 more photos than one of other", 10 * amount.get(0) > amount.get(amount.size() - 1));
+//        assertTrue("One of camera do in 10 more photos than one of other",
+//                10 * amount.get(0) > amount.get(amount.size() - 1));
 //    }
 //
 //}
