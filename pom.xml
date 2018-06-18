@@ -41,6 +41,12 @@
             <version>1.18.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>1.9.8</version>
+        </dependency>
     </dependencies>
 
     <build>

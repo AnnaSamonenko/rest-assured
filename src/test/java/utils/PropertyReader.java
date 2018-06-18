@@ -7,17 +7,16 @@ import java.util.Properties;
 
 public class PropertyReader {
 
-    // TODO: use singleton pattern
-    // TODO: IO commons
-
     private static Properties properties = new Properties();
+
+    private PropertyReader() {
+    }
 
     public static String getProperty(final String property) {
         try (InputStream inputStream = new FileInputStream("src\\test\\resources\\config.properties")) {
             properties.load(inputStream);
             return properties.getProperty(property);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             return ex.getMessage();
         }
     }
