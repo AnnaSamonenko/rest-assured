@@ -43,7 +43,7 @@ public class MarsPhotosSteps {
     private Map<String, Integer> getAmountOfPhotosByCameras(final int sol) {
         List<CameraDTO> cameraDTOS = getPhoto(sol)
                 .stream()
-                .map(PhotoDTO::getCamera)
+                .map(PhotoDTO::getCameraDTO)
                 .collect(Collectors.toList());
 
         Set<String> nameOfCameras = cameraDTOS.stream().map(CameraDTO::getName).collect(Collectors.toSet());

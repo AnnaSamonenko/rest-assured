@@ -9,6 +9,6 @@ public class PhotoDTO extends BaseDTO {
     private String img_src;
     private String earth_date;
     @Getter
-    private CameraDTO camera;
-    private RoverDTO roverDTO;
+    private CameraDTO cameraDTO;
+    private RoverDTO rover;
 }
