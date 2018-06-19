@@ -7,20 +7,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * <h1>PropertyReader is for reading properties file.</>
+ * The PropertyReader provide function for getting value by specified key from the property file.
+ */
 public class PropertyReader {
 
     private static Properties properties = new Properties();
-    final static Logger logger = Logger.getLogger(PropertyReader.class);
+    private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
     private PropertyReader() {
     }
 
-    public static String getProperty(final String property) {
-        try (InputStream inputStream = new FileInputStream("src\\test\\resources\\config.properties")) {
+    /**
+     * This method is used for searching for the property with the specified key.
+     *
+     * @param key the property key
+     * @return the value
+     */
+    public static String getProperty(final String key) {
+        try (InputStream inputStream = new FileInputStream("src\\test\\resources\\static.properties")) {
             properties.load(inputStream);
-            return properties.getProperty(property);
+            return properties.getProperty(key);
         } catch (IOException ex) {
-            logger.error(ex.getMessage());
+            logger.error(ex);
             return ex.getMessage();
         }
     }
