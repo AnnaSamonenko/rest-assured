@@ -2,7 +2,7 @@ package steps.business;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dto.Photo;
+import dto.PhotoDTO;
 import steps.flow.MarsPhotosSteps;
 import utils.ComparatorOfImages;
 import utils.Converter;
@@ -16,8 +16,8 @@ import static org.junit.Assert.assertEquals;
 
 public class ImageDefinitionSteps {
     private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
-    private List<Photo> expectedPhotosWithEarthDate;
-    private List<Photo> expectedPhotosWithSolDate;
+    private List<PhotoDTO> expectedPhotosWithEarthDate;
+    private List<PhotoDTO> expectedPhotosWithSolDate;
 
     @When("^call Mars photos service with (\\d+) sol for sol date for (\\d+) photos$")
     public void callMarsPhotosForEarthDateService(final int sol, final int amount) {

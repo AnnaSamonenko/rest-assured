@@ -1,7 +1,7 @@
 package steps.flow;
 
-import dto.Camera;
-import dto.Photo;
+import dto.CameraDTO;
+import dto.PhotoDTO;
 import endpoint.MarsPhotosEndpoint;
 
 import java.util.*;
@@ -11,24 +11,24 @@ public class MarsPhotosSteps {
 
     private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
 
-    private List<Photo> getPhoto(final int sol) {
+    private List<PhotoDTO> getPhoto(final int sol) {
         return endpoint.marsPhotosEndpointWithSol(sol).stream().collect(Collectors.toList());
     }
 
-    public List<Photo> getPhoto(final String date, final int amount) {
+    public List<PhotoDTO> getPhoto(final String date, final int amount) {
         return endpoint.marsPhotosEndpointWithEarthDate(date).stream().limit(amount).collect(Collectors.toList());
     }
 
-    public List<Photo> getPhoto(final int sol, final int amount) {
+    public List<PhotoDTO> getPhoto(final int sol, final int amount) {
         return endpoint.marsPhotosEndpointWithSol(sol).stream().limit(amount).collect(Collectors.toList());
     }
 
     public List<String> getListOfUrls(final int sol, final int amount) {
-        return getPhoto(sol, amount).stream().limit(amount).map(Photo::getImg_src).collect(Collectors.toList());
+        return getPhoto(sol, amount).stream().limit(amount).map(PhotoDTO::getImg_src).collect(Collectors.toList());
     }
 
     public List<String> getListOfUrls(final String date, final int amount) {
-        return getPhoto(date, amount).stream().limit(amount).map(Photo::getImg_src).collect(Collectors.toList());
+        return getPhoto(date, amount).stream().limit(amount).map(PhotoDTO::getImg_src).collect(Collectors.toList());
     }
 
     public Map<String, Integer> getAmountOfPhotosInOrder(final int sol) {
@@ -41,12 +41,12 @@ public class MarsPhotosSteps {
     }
 
     private Map<String, Integer> getAmountOfPhotosByCameras(final int sol) {
-        List<Camera> cameras = getPhoto(sol)
+        List<CameraDTO> cameraDTOS = getPhoto(sol)
                 .stream()
-                .map(Photo::getCamera)
+                .map(PhotoDTO::getCamera)
                 .collect(Collectors.toList());
 
-        Set<String> nameOfCameras = cameras.stream().map(Camera::getName).collect(Collectors.toSet());
+        Set<String> nameOfCameras = cameraDTOS.stream().map(CameraDTO::getName).collect(Collectors.toSet());
 
         Map<String, Integer> amountOfPhotos = new LinkedHashMap<>();
 
@@ -54,9 +54,9 @@ public class MarsPhotosSteps {
             amountOfPhotos.put(key, 0);
         }
 
-        for (Camera camera : cameras) {
+        for (CameraDTO cameraDTO : cameraDTOS) {
             for (String name : nameOfCameras)
-                if (camera.getName().equals(name)) {
+                if (cameraDTO.getName().equals(name)) {
                     Integer amount = amountOfPhotos.get(name);
                     amount++;
                     amountOfPhotos.put(name, amount);
