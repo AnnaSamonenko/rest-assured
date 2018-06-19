@@ -2,7 +2,7 @@ package steps;
 
 import dto.CameraDTO;
 import dto.PhotoDTO;
-import endpoint.MarsPhotosEndpoint;
+import resources.MarsPhotosEndpoint;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,37 +11,52 @@ public class MarsPhotosSteps {
 
     private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
 
-    private List<PhotoDTO> getPhoto(final int sol) {
-        return endpoint.marsPhotosEndpointWithSol(sol).stream().collect(Collectors.toList());
+    public List<PhotoDTO> getPhotos(final String roverName, final String earthDate, final int quantity) {
+        return endpoint
+                .get(roverName, earthDate)
+                .stream()
+                .limit(quantity)
+                .collect(Collectors.toList());
     }
 
-    public List<PhotoDTO> getPhoto(final String date, final int amount) {
-        return endpoint.marsPhotosEndpointWithEarthDate(date).stream().limit(amount).collect(Collectors.toList());
+    public List<PhotoDTO> getPhotos(final String roverName, final int sol, final int quantity) {
+        return endpoint
+                .get(roverName, sol)
+                .stream()
+                .limit(quantity)
+                .collect(Collectors.toList());
     }
 
-    public List<PhotoDTO> getPhoto(final int sol, final int amount) {
-        return endpoint.marsPhotosEndpointWithSol(sol).stream().limit(amount).collect(Collectors.toList());
+    public List<String> getListOfUrls(final String roverName, final int sol, final int quantity) {
+        return getPhotos(roverName, sol, quantity)
+                .stream()
+                .limit(quantity)
+                .map(PhotoDTO::getImg_src)
+                .collect(Collectors.toList());
     }
 
-    public List<String> getListOfUrls(final int sol, final int amount) {
-        return getPhoto(sol, amount).stream().limit(amount).map(PhotoDTO::getImg_src).collect(Collectors.toList());
+    public List<String> getListOfUrls(final String roverName, final String date, final int quantity) {
+        return getPhotos(roverName, date, quantity)
+                .stream()
+                .limit(quantity)
+                .map(PhotoDTO::getImg_src)
+                .collect(Collectors.toList());
     }
 
-    public List<String> getListOfUrls(final String date, final int amount) {
-        return getPhoto(date, amount).stream().limit(amount).map(PhotoDTO::getImg_src).collect(Collectors.toList());
-    }
-
-    public Map<String, Integer> getAmountOfPhotosInOrder(final int sol) {
-        Map<String, Integer> result = getAmountOfPhotosByCameras(sol).entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+    public Map<String, Integer> getQuantityOfPhotosMadeByCameraInOrder(final String roverName, final int sol) {
+        Map<String, Integer> result =
+                getQuantityOfPhotosByCamera(roverName, sol)
+                        .entrySet()
+                        .stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
         return result;
     }
 
-    private Map<String, Integer> getAmountOfPhotosByCameras(final int sol) {
-        List<CameraDTO> cameraDTOS = getPhoto(sol)
+    private Map<String, Integer> getQuantityOfPhotosByCamera(final String roverName, final int sol) {
+        List<CameraDTO> cameraDTOS = getAllPhotos(roverName, sol)
                 .stream()
                 .map(PhotoDTO::getCamera)
                 .collect(Collectors.toList());
@@ -64,6 +79,13 @@ public class MarsPhotosSteps {
         }
 
         return amountOfPhotos;
+    }
+
+    private List<PhotoDTO> getAllPhotos(final String roverName, final int sol) {
+        return endpoint
+                .get(roverName, sol)
+                .stream()
+                .collect(Collectors.toList());
     }
 
 }

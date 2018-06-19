@@ -1,9 +1,7 @@
-package endpoint;
+package resources;
 
 import dto.PhotoDTO;
 import io.restassured.http.ContentType;
-import org.apache.log4j.Logger;
-import utils.PropertyReader;
 
 import java.util.List;
 
@@ -11,15 +9,12 @@ import static io.restassured.RestAssured.*;
 
 public class MarsPhotosEndpoint {
 
-    // TODO: add path param for a rover
-
-    final static Logger logger = Logger.getLogger(PropertyReader.class);
-    private String endpoint = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos";
+    private String endpoint = "https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos";
     private String api_key = "rGltefJ0QxYGVJr9Tx7vfbC2sGSh86qCJjqRGbpe";
 
-    public List<PhotoDTO> marsPhotosEndpointWithSol(final int sol) {
-        logger.error("Verify work of logger");
+    public List<PhotoDTO> get(final String roverName, final int sol) {
         return given()
+                .pathParam("rover", roverName)
                 .queryParam("sol", sol)
                 .queryParam("api_key", api_key)
                 .contentType(ContentType.JSON)
@@ -27,8 +22,9 @@ public class MarsPhotosEndpoint {
                 .get(endpoint).jsonPath().getList("photos", PhotoDTO.class);
     }
 
-    public List<PhotoDTO> marsPhotosEndpointWithEarthDate(final String earthDate) {
+    public List<PhotoDTO> get(final String roverName, final String earthDate) {
         return given()
+                .pathParam("rover", roverName)
                 .queryParam("earth_date", earthDate)
                 .queryParam("api_key", api_key)
                 .contentType(ContentType.JSON)
