@@ -1,7 +1,7 @@
 //package steps.business;
 //
 //import org.junit.Test;
-//import steps.flow.MarsPhotosSteps;
+//import MarsPhotosSteps;
 //import utils.PropertyReader;
 //
 //import java.util.ArrayList;

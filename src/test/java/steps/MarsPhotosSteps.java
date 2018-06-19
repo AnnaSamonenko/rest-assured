@@ -1,4 +1,4 @@
-package steps.flow;
+package steps;
 
 import dto.CameraDTO;
 import dto.PhotoDTO;

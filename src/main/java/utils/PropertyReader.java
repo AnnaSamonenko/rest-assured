@@ -16,7 +16,7 @@ public class PropertyReader {
     }
 
     public static String getProperty(final String property) {
-        try (InputStream inputStream = new FileInputStream("src\\test\\resources\\config.properties")) {
+        try (InputStream inputStream = new FileInputStream("src\\test\\resources\\static.properties")) {
             properties.load(inputStream);
             return properties.getProperty(property);
         } catch (IOException ex) {

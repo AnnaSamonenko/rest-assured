@@ -1,10 +1,10 @@
-package steps.business;
+package tests;
 
 import dto.PhotoDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import steps.flow.MarsPhotosSteps;
+import steps.MarsPhotosSteps;
 import utils.ComparatorOfImages;
 import utils.Converter;
 import utils.Downloader;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class ImageDefinitionSteps {
+public class ImageTest {
     private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
 
     private static int sol = Integer.valueOf(PropertyReader.getProperty("sol"));
