@@ -1,9 +1,8 @@
 package tests;
 
 import dto.PhotoDTO;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.apache.commons.io.FileUtils;
+import org.junit.*;
 import steps.MarsPhotosSteps;
 import utils.ComparatorOfImages;
 import utils.Converter;
@@ -37,7 +36,8 @@ public class ImageTest {
     @Test
     public void testMetadataFromMarsPhotosService() {
         List<PhotoDTO> expectedPhotosWithSolDate = marsPhotosSteps.getPhotos(roverName, sol, quantityOfPhotos);
-        List<PhotoDTO> expectedPhotosWithEarthDate = marsPhotosSteps.getPhotos(roverName, Converter.countEarthDate(sol), quantityOfPhotos);
+        List<PhotoDTO> expectedPhotosWithEarthDate = marsPhotosSteps.getPhotos(roverName, Converter.countEarthDate(sol),
+                quantityOfPhotos);
 
         assertEquals("Metadata from the resources is different but should be similar",
                 expectedPhotosWithEarthDate,
@@ -52,8 +52,9 @@ public class ImageTest {
     }
 
     @After
-    public void clean() {
-
+    public void clean() throws Exception {
+        FileUtils.deleteDirectory(new File(PropertyReader.getProperty("photos.earth.date.dir")));
+        FileUtils.deleteDirectory(new File(PropertyReader.getProperty("photos.sol.dir")));
     }
 
 }

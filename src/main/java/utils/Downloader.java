@@ -24,12 +24,13 @@ public class Downloader {
      * @param URLs   is a list of URLs to images
      */
     public static void downloadPictures(final String folder, final List<String> URLs) {
-        if (createDir(folder)) {
+        File dir = new File(folder);
+        createDir(dir);
+        if (dir.exists()) {
             for (String s : URLs)
                 downloadPicture(folder, s);
         } else {
-            logger.error("Folder for images is not created");
-            System.exit(1);
+            logger.error("Folder is not created");
         }
     }
 
@@ -70,11 +71,11 @@ public class Downloader {
     /**
      * This method is used for creating directory.
      *
-     * @param dirName is the name of the directory
+     * @param file is the directory
      * @return true in case folder is created, otherwise - false
      */
-    private static boolean createDir(final String dirName) {
-        return new File(dirName).mkdir();
+    private static boolean createDir(final File file) {
+        return file.mkdir();
     }
 
 }
