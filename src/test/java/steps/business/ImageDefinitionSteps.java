@@ -2,7 +2,8 @@ package steps.business;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dto.PhotoDTO;
+import model.PhotoDTO;
+import net.thucydides.core.annotations.Steps;
 import steps.flow.MarsPhotosSteps;
 import utils.ComparatorOfImages;
 import utils.Converter;
@@ -15,7 +16,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ImageDefinitionSteps {
-    private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
+    @Steps
+    private MarsPhotosSteps marsPhotosSteps;
     private List<PhotoDTO> expectedPhotosWithEarthDate;
     private List<PhotoDTO> expectedPhotosWithSolDate;
 

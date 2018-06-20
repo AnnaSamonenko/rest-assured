@@ -1,6 +1,6 @@
 package utils;
 
-import dto.LandingDate;
+import model.LandingDate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
