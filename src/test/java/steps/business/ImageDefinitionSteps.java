@@ -19,32 +19,32 @@ public class ImageDefinitionSteps {
     private List<PhotoDTO> expectedPhotosWithEarthDate;
     private List<PhotoDTO> expectedPhotosWithSolDate;
 
-    @When("^call Mars photos service with (\\d+) sol for sol date for (\\d+) photos$")
-    public void callMarsPhotosForEarthDateService(final int sol, final int amount) {
-        Downloader.downloadPictures(PropertyReader.getProperty("dirForPhotosWithEarthDate"),
-                marsPhotosSteps.getListOfUrls(Converter.getEarthDate(sol), amount));
-        expectedPhotosWithSolDate = marsPhotosSteps.getPhoto(sol, amount);
+    @When("^call Mars photos service with (\\d+) sol for (\\w+) rover for sol date for (\\d+) photos$")
+    public void callMarsPhotosForEarthDateService(final int sol, final String roverName, final int amount) throws Exception {
+        Downloader.downloadPictures(PropertyReader.getProperty("photos.earth.date.dir"),
+                marsPhotosSteps.getListOfUrls(roverName, Converter.countEarthDate(sol, roverName), amount));
+        expectedPhotosWithSolDate = marsPhotosSteps.getPhotos(roverName, sol, amount);
     }
 
-    @When("^call Mars photos service with (\\d+) sol of earth date for (\\d+) photos$")
-    public void callMarsPhotosForSolDateService(final int sol, final int amount) {
-        Downloader.downloadPictures(PropertyReader.getProperty("photosSol"),
-                marsPhotosSteps.getListOfUrls(sol, amount));
-        expectedPhotosWithEarthDate = marsPhotosSteps.getPhoto(Converter.getEarthDate(sol), amount);
+    @When("^call Mars photos service with (\\d+) sol for (\\w+) rover for earth date for (\\d+) photos$")
+    public void callMarsPhotosForSolDateService(final int sol, final String roverName, final int amount) throws Exception {
+        Downloader.downloadPictures(PropertyReader.getProperty("photos.sol.dir"),
+                marsPhotosSteps.getListOfUrls(roverName, sol, amount));
+        expectedPhotosWithEarthDate = marsPhotosSteps.getPhotos(roverName, Converter.countEarthDate(sol, roverName), amount);
     }
 
     @Then("metadata is the same")
     public void verifyMatadata() {
-        assertEquals("Metadata from the endpoint is different but should be similar",
+        assertEquals("Metadata from the resources is different but should be similar",
                 expectedPhotosWithEarthDate,
                 expectedPhotosWithSolDate);
     }
 
     @Then("images are the same")
     public void verifyImages() {
-        File file1 = new File("photos sol date");
-        File file2 = new File("photos earth date");
-        ComparatorOfImages.imagesIsEqual(file1, file2);
+        File file1 = new File(PropertyReader.getProperty("photos.earth.date.dir"));
+        File file2 = new File(PropertyReader.getProperty("photos.sol.dir"));
+        ComparatorOfImages.imagesAreEqual(file1, file2);
     }
 
 }
