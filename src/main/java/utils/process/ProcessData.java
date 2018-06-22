@@ -1,14 +1,15 @@
-package steps.flow;
+package utils.process;
 
-import dto.PhotoDTO;
-import resources.MarsPhotosEndpoint;
+import model.PhotoDTO;
+import resources.MarsPhotoEndpoint;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MarsPhotosSteps {
+public class ProcessData {
 
-    private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
+    private MarsPhotoEndpoint endpoint = new MarsPhotoEndpoint();
 
     public List<PhotoDTO> getPhotos(final String roverName, final String earthDate, final int quantity) {
         return endpoint

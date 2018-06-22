@@ -1,9 +1,9 @@
-package steps.business;
+package steps;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dto.PhotoDTO;
-import steps.flow.MarsPhotosSteps;
+import model.PhotoDTO;
+import utils.process.ProcessData;
 import utils.ComparatorOfImages;
 import utils.Converter;
 import utils.Downloader;
@@ -15,22 +15,22 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ImageDefinitionSteps {
-    private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
+    private ProcessData processData = new ProcessData();
     private List<PhotoDTO> expectedPhotosWithEarthDate;
     private List<PhotoDTO> expectedPhotosWithSolDate;
 
     @When("^call Mars photos service with (\\d+) sol for (\\w+) rover for sol date for (\\d+) photos$")
     public void callMarsPhotosForEarthDateService(final int sol, final String roverName, final int amount) throws Exception {
         Downloader.downloadPictures(PropertyReader.getProperty("photos.earth.date.dir"),
-                marsPhotosSteps.getListOfUrls(roverName, Converter.countEarthDate(sol, roverName), amount));
-        expectedPhotosWithSolDate = marsPhotosSteps.getPhotos(roverName, sol, amount);
+                processData.getListOfUrls(roverName, Converter.countEarthDate(sol, roverName), amount));
+        expectedPhotosWithSolDate = processData.getPhotos(roverName, sol, amount);
     }
 
     @When("^call Mars photos service with (\\d+) sol for (\\w+) rover for earth date for (\\d+) photos$")
     public void callMarsPhotosForSolDateService(final int sol, final String roverName, final int amount) throws Exception {
         Downloader.downloadPictures(PropertyReader.getProperty("photos.sol.dir"),
-                marsPhotosSteps.getListOfUrls(roverName, sol, amount));
-        expectedPhotosWithEarthDate = marsPhotosSteps.getPhotos(roverName, Converter.countEarthDate(sol, roverName), amount);
+                processData.getListOfUrls(roverName, sol, amount));
+        expectedPhotosWithEarthDate = processData.getPhotos(roverName, Converter.countEarthDate(sol, roverName), amount);
     }
 
     @Then("metadata is the same")

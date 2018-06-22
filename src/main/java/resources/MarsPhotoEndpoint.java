@@ -1,13 +1,13 @@
 package resources;
 
-import dto.PhotoDTO;
+import model.PhotoDTO;
 import io.restassured.http.ContentType;
 
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
 
-public class MarsPhotosEndpoint {
+public class MarsPhotoEndpoint {
 
     private String endpoint = "https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos";
     private String api_key = "rGltefJ0QxYGVJr9Tx7vfbC2sGSh86qCJjqRGbpe";
