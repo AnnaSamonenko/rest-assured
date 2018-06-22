@@ -26,7 +26,7 @@ public class PropertyReader {
      * @return the value
      */
     public static String getProperty(final String key) {
-        try (InputStream inputStream = new FileInputStream("src\\test\\resources\\static.properties")) {
+        try (InputStream inputStream = new FileInputStream("src\\main\\resources\\static.properties")) {
             properties.load(inputStream);
             return properties.getProperty(key);
         } catch (IOException ex) {

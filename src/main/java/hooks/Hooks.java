@@ -12,7 +12,7 @@ public class Hooks {
 
     private Logger logger = Logger.getLogger(Hooks.class);
 
-    @After
+    @After("@clean")
     public void deleteDirectories() throws IOException {
         FileUtils.deleteDirectory(new File(PropertyReader.getProperty("photos.earth.date.dir")));
         FileUtils.deleteDirectory(new File(PropertyReader.getProperty("photos.sol.dir")));

@@ -2,6 +2,7 @@ package steps.flow;
 
 import model.PhotoDTO;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.Steps;
 import resources.MarsPhotosEndpoint;
 
 import java.util.*;
@@ -9,7 +10,8 @@ import java.util.stream.Collectors;
 
 public class MarsPhotosSteps {
 
-    private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
+    @Steps
+    private MarsPhotosEndpoint endpoint;
 
     @Step
     public List<PhotoDTO> getPhotos(final String roverName, final String earthDate, final int quantity) {
