@@ -56,7 +56,6 @@ public class ProcessData extends GetData {
                 .collect(Collectors.toList());
 
         Set<String> nameOfCameras = cameraDTOS.stream().map(CameraDTO::getName).collect(Collectors.toSet());
-
         Map<String, Integer> amountOfPhotos = new LinkedHashMap<>();
 
         for (String key : nameOfCameras) {
@@ -71,7 +70,6 @@ public class ProcessData extends GetData {
                     amountOfPhotos.put(name, amount);
                 }
         }
-
         return amountOfPhotos;
     }
 

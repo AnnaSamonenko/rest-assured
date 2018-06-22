@@ -2,11 +2,7 @@ package tests;
 
 import model.PhotoDTO;
 import org.junit.*;
-import utils.ProcessData;
-import utils.ComparatorOfImages;
-import utils.Converter;
-import utils.Downloader;
-import utils.PropertyReader;
+import utils.*;
 
 import java.io.File;
 import java.util.List;
@@ -51,8 +47,9 @@ public class ImageTest {
     }
 
     @After
-    public void clean() throws Exception {
-
+    public void clean() {
+        FileUtils.removeDirectory(PropertyReader.getProperty("photos.sol.dir"));
+        FileUtils.removeDirectory(PropertyReader.getProperty("photos.earth.date.dir"));
     }
 
 }
