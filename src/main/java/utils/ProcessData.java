@@ -1,27 +1,23 @@
-package steps;
+package utils;
 
-import dto.CameraDTO;
-import dto.PhotoDTO;
-import resources.MarsPhotosEndpoint;
+import data.GetData;
+import model.CameraDTO;
+import model.PhotoDTO;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MarsPhotosSteps {
-
-    private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
+public class ProcessData extends GetData {
 
     public List<PhotoDTO> getPhotos(final String roverName, final String earthDate, final int quantity) {
-        return endpoint
-                .get(roverName, earthDate)
+        return get(roverName, earthDate)
                 .stream()
                 .limit(quantity)
                 .collect(Collectors.toList());
     }
 
     public List<PhotoDTO> getPhotos(final String roverName, final int sol, final int quantity) {
-        return endpoint
-                .get(roverName, sol)
+        return get(roverName, sol)
                 .stream()
                 .limit(quantity)
                 .collect(Collectors.toList());
@@ -44,19 +40,17 @@ public class MarsPhotosSteps {
     }
 
     public Map<String, Integer> getQuantityOfPhotosMadeByCameraInOrder(final String roverName, final int sol) {
-        Map<String, Integer> result =
-                getQuantityOfPhotosByCamera(roverName, sol)
-                        .entrySet()
-                        .stream()
-                        .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                                (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        return getQuantityOfPhotosByCamera(roverName, sol)
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
-        return result;
     }
 
     private Map<String, Integer> getQuantityOfPhotosByCamera(final String roverName, final int sol) {
-        List<CameraDTO> cameraDTOS = getAllPhotos(roverName, sol)
+        List<CameraDTO> cameraDTOS = get(roverName, sol)
                 .stream()
                 .map(PhotoDTO::getCamera)
                 .collect(Collectors.toList());
@@ -79,13 +73,6 @@ public class MarsPhotosSteps {
         }
 
         return amountOfPhotos;
-    }
-
-    private List<PhotoDTO> getAllPhotos(final String roverName, final int sol) {
-        return endpoint
-                .get(roverName, sol)
-                .stream()
-                .collect(Collectors.toList());
     }
 
 }

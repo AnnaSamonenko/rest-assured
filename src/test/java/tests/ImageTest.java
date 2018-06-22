@@ -1,9 +1,8 @@
 package tests;
 
-import dto.PhotoDTO;
-import org.apache.commons.io.FileUtils;
+import model.PhotoDTO;
 import org.junit.*;
-import steps.MarsPhotosSteps;
+import utils.ProcessData;
 import utils.ComparatorOfImages;
 import utils.Converter;
 import utils.Downloader;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ImageTest {
-    private MarsPhotosSteps marsPhotosSteps = new MarsPhotosSteps();
+    private ProcessData processData = new ProcessData();
 
     private static int sol = Integer.valueOf(PropertyReader.getProperty("sol"));
     private static int quantityOfPhotos = Integer.valueOf(PropertyReader.getProperty("photos.quantity"));
@@ -25,18 +24,18 @@ public class ImageTest {
     private static String roverName = PropertyReader.getProperty("rover.name");
 
     @Before
-    public void downloadImages() {
+    public void downloadImages() throws Exception {
         Downloader.downloadPictures(PropertyReader.getProperty("photos.earth.date.dir"),
-                marsPhotosSteps.getListOfUrls(roverName, Converter.countEarthDate(sol), quantityOfPhotos));
+                processData.getListOfUrls(roverName, Converter.countEarthDate(sol, roverName), quantityOfPhotos));
 
         Downloader.downloadPictures(PropertyReader.getProperty("photos.sol.dir"),
-                marsPhotosSteps.getListOfUrls(roverName, sol, quantityOfPhotos));
+                processData.getListOfUrls(roverName, sol, quantityOfPhotos));
     }
 
     @Test
-    public void testMetadataFromMarsPhotosService() {
-        List<PhotoDTO> expectedPhotosWithSolDate = marsPhotosSteps.getPhotos(roverName, sol, quantityOfPhotos);
-        List<PhotoDTO> expectedPhotosWithEarthDate = marsPhotosSteps.getPhotos(roverName, Converter.countEarthDate(sol),
+    public void testMetadataFromMarsPhotosService() throws Exception {
+        List<PhotoDTO> expectedPhotosWithSolDate = processData.getPhotos(roverName, sol, quantityOfPhotos);
+        List<PhotoDTO> expectedPhotosWithEarthDate = processData.getPhotos(roverName, Converter.countEarthDate(sol, roverName),
                 quantityOfPhotos);
 
         assertEquals("Metadata from the resources is different but should be similar",
@@ -53,8 +52,7 @@ public class ImageTest {
 
     @After
     public void clean() throws Exception {
-        FileUtils.deleteDirectory(new File(PropertyReader.getProperty("photos.earth.date.dir")));
-        FileUtils.deleteDirectory(new File(PropertyReader.getProperty("photos.sol.dir")));
+
     }
 
 }

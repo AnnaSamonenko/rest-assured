@@ -1,7 +1,11 @@
 package utils;
 
+import model.LandingDate;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * <h1>Converter of sol to earth date</>
@@ -18,12 +22,14 @@ public class Converter {
      * Note: Time of staying of rover needed to be counted in the earth date.
      *
      * @param sol is duration of a sonar day on Mars
+     * @param landingDateStr is enum with landing date of rovers
      * @return String with formatted earth date: yyyy-MM-dd
      */
-    public static String countEarthDate(final int sol) {
+    public static String countEarthDate(final int sol, String landingDateStr) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar earthDate = Calendar.getInstance();
-        earthDate.set(2012, Calendar.AUGUST, 6);
+        Date landingDate = sdf.parse(LandingDate.valueOf(landingDateStr.toUpperCase()).date());
+        earthDate.setTime(landingDate);
         earthDate.add(Calendar.DATE, convertSolToEarthDay(sol));
         return sdf.format(earthDate.getTime());
     }
