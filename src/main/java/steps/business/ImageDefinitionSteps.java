@@ -11,6 +11,7 @@ import utils.Downloader;
 import utils.PropertyReader;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -22,14 +23,16 @@ public class ImageDefinitionSteps {
     private List<PhotoDTO> expectedPhotosWithSolDate;
 
     @When("^call Mars photos service with (\\d+) sol for (\\w+) rover for sol date for (\\d+) photos$")
-    public void callMarsPhotosForEarthDateService(final int sol, final String roverName, final int amount) throws Exception {
+    public void callMarsPhotosForEarthDateService(final int sol, final String roverName, final int amount)
+            throws ParseException {
         Downloader.downloadPictures(PropertyReader.getProperty("photos.earth.date.dir"),
                 marsPhotosSteps.getListOfUrls(roverName, Converter.countEarthDate(sol, roverName), amount));
         expectedPhotosWithSolDate = marsPhotosSteps.getPhotos(roverName, sol, amount);
     }
 
     @When("^call Mars photos service with (\\d+) sol for (\\w+) rover for earth date for (\\d+) photos$")
-    public void callMarsPhotosForSolDateService(final int sol, final String roverName, final int amount) throws Exception {
+    public void callMarsPhotosForSolDateService(final int sol, final String roverName, final int amount)
+            throws ParseException {
         Downloader.downloadPictures(PropertyReader.getProperty("photos.sol.dir"),
                 marsPhotosSteps.getListOfUrls(roverName, sol, amount));
         expectedPhotosWithEarthDate = marsPhotosSteps.getPhotos(roverName, Converter.countEarthDate(sol, roverName), amount);
