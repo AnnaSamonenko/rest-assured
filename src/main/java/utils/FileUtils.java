@@ -1,5 +1,7 @@
 package utils;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 
 
@@ -8,6 +10,8 @@ import java.io.File;
  * For removing directory.
  */
 public class FileUtils {
+
+    private static final Logger logger = Logger.getLogger(ComparatorOfImages.class);
 
     private FileUtils() {
     }
@@ -20,11 +24,17 @@ public class FileUtils {
     public static void removeDirectory(String dirName) {
         File directory = new File(dirName);
         String[] entries = directory.list();
-        for (String s : entries) {
-            File currentFile = new File(directory.getPath(), s);
-            currentFile.delete();
+        if (entries.length != 0) {
+            for (String s : entries) {
+                File currentFile = new File(directory.getPath(), s);
+                if (!currentFile.delete()) {
+                    logger.error("Can't remove file in the directory");
+                }
+            }
         }
-        directory.delete();
+        if (!directory.delete()) {
+            logger.error("Can't remove directories");
+        }
     }
 
 }

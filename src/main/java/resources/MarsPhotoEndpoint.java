@@ -10,13 +10,13 @@ import static io.restassured.RestAssured.*;
 public class MarsPhotoEndpoint {
 
     private String endpoint = "https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos";
-    private String api_key = "rGltefJ0QxYGVJr9Tx7vfbC2sGSh86qCJjqRGbpe";
+    private String apiKey = "rGltefJ0QxYGVJr9Tx7vfbC2sGSh86qCJjqRGbpe";
 
     public List<PhotoDTO> get(final String roverName, final int sol) {
         return given()
                 .pathParam("rover", roverName)
                 .queryParam("sol", sol)
-                .queryParam("api_key", api_key)
+                .queryParam("api_key", apiKey)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(endpoint).jsonPath().getList("photos", PhotoDTO.class);
@@ -26,7 +26,7 @@ public class MarsPhotoEndpoint {
         return given()
                 .pathParam("rover", roverName)
                 .queryParam("earth_date", earthDate)
-                .queryParam("api_key", api_key)
+                .queryParam("api_key", apiKey)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(endpoint).jsonPath().getList("photos", PhotoDTO.class);
