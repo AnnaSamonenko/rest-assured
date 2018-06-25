@@ -1,5 +1,8 @@
 package data;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import model.PhotoDTO;
 import io.restassured.http.ContentType;
 
@@ -9,27 +12,31 @@ import static io.restassured.RestAssured.*;
 
 public class GetData {
 
-    private String url = "https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos";
+    private String baseURL = "https://api.nasa.gov";
+    private String service = "mars-photos/api/v1/rovers/{rover}/photos";
     private String apiKey = "rGltefJ0QxYGVJr9Tx7vfbC2sGSh86qCJjqRGbpe";
 
     protected List<PhotoDTO> get(final String roverName, final int sol) {
-        return given()
-                .pathParam("rover", roverName)
-                .queryParam("sol", sol)
-                .queryParam("api_key", apiKey)
-                .contentType(ContentType.JSON)
-                .when()
-                .get(url).jsonPath().getList("photos", PhotoDTO.class);
+        return get(roverName, "sol", Integer.toString(sol));
     }
 
     protected List<PhotoDTO> get(final String roverName, final String earthDate) {
+        return get(roverName, "earth_date", earthDate);
+    }
+
+    private List<PhotoDTO> get(final String roverName, final String paramName, final String paramValue) {
+
         return given()
-                .pathParam("rover", roverName)
-                .queryParam("earth_date", earthDate)
-                .queryParam("api_key", apiKey)
-                .contentType(ContentType.JSON)
+                .spec(new RequestSpecBuilder()
+                        .setBaseUri(baseURL)
+                        .addPathParam("rover", roverName)
+                        .addQueryParam(paramName, paramValue)
+                        .addQueryParam("api_key", apiKey)
+                        .build())
                 .when()
-                .get(url).jsonPath().getList("photos", PhotoDTO.class);
+                .get(service)
+                .jsonPath()
+                .getList("photos", PhotoDTO.class);
     }
 
 }

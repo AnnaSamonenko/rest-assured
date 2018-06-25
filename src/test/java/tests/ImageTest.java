@@ -46,7 +46,6 @@ public class ImageTest {
         assertTrue(ComparatorOfImages.imagesAreEqual(file1, file2));
     }
 
-    @After
     public void clean() {
         FileUtils.removeDirectory(PropertyReader.getProperty("photos.sol.dir"));
         FileUtils.removeDirectory(PropertyReader.getProperty("photos.earth.date.dir"));
