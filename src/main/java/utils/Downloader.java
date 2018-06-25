@@ -3,6 +3,7 @@ package utils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -21,13 +22,13 @@ public class Downloader {
      * This method is used for downloading images.
      *
      * @param folder destination folder for downloaded images
-     * @param URLs   is a list of URLs to images
+     * @param urls   is a list of URLs to images
      */
-    public static void downloadPictures(final String folder, final List<String> URLs) {
+    public static void downloadPictures(final String folder, final List<String> urls) {
         File dir = new File(folder);
         createDir(dir);
         if (dir.exists()) {
-            for (String s : URLs)
+            for (String s : urls)
                 downloadPicture(folder, s);
         } else {
             logger.error("Folder is not created");
@@ -61,7 +62,7 @@ public class Downloader {
      * @param imageUrl is a URL to a single image
      * @return the list of image titles
      */
-    private static String getImageTitle(final String imageUrl) throws Exception {
+    private static String getImageTitle(final String imageUrl) throws MalformedURLException {
         URL url = new URL(imageUrl);
         String urlFile = url.getFile();
         String[] urlFileList = urlFile.split("/");
