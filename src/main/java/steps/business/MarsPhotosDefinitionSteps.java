@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class ImageDefinitionSteps {
+public class MarsPhotosDefinitionSteps {
     @Steps
     private MarsPhotosSteps marsPhotosSteps;
     private List<PhotoDTO> expectedPhotosWithEarthDate;
