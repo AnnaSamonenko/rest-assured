@@ -4,7 +4,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import model.PhotoDTO;
 import net.thucydides.core.annotations.Steps;
-import steps.flow.MarsPhotosSteps;
+import steps.serenity.MarsPhotosSteps;
 import utils.ComparatorOfImages;
 import utils.Converter;
 import utils.Downloader;

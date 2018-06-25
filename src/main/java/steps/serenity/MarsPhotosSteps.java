@@ -1,4 +1,4 @@
-package steps.flow;
+package steps.serenity;
 
 import model.PhotoDTO;
 import net.thucydides.core.annotations.Step;
