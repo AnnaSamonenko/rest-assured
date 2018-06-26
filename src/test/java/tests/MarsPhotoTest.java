@@ -4,9 +4,8 @@ import helpers.MarsPhotoHelper;
 import org.junit.*;
 import utils.*;
 
-import java.io.File;
-
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class MarsPhotoTest {
 
@@ -26,11 +25,11 @@ public class MarsPhotoTest {
 
     @Test
     public void testImagesFromMarsPhotosService() {
-        File file1 = new File(dirWithEarthDateImages);
-        File file2 = new File(dirWithSolDateImages);
-
-        assertTrue("",
-                ComparatorOfImagesUtil.imagesAreEqual(file1, file2));
+        assertTrue("Images is different",
+                ComparatorOfImagesUtil.imagesAreEqual(
+                        helper.getDirectoryToImagesWithSolDate(),
+                        helper.getDirectoryToImagesWithEarthDate())
+        );
     }
 
     @After
