@@ -26,7 +26,7 @@ public class ComparatorOfImagesUtil {
      * @return true in case images in first directory is relevant
      * to images from the second directory, otherwise return false
      */
-    public static boolean imagesAreEqual(final File folder1, final File folder2) {
+    public static boolean areImagesEqual(final File folder1, final File folder2) {
         if (!folder1.isDirectory() || !folder2.isDirectory()) {
             logger.error("There no such folder");
             System.exit(1);
@@ -44,7 +44,7 @@ public class ComparatorOfImagesUtil {
         }
 
         for (int i = 0; i < listOfImages1.length; i++) {
-            if (!imagesAreEqualBySingleFile(listOfImages1[i].getAbsoluteFile(), listOfImages2[i].getAbsoluteFile())) {
+            if (!areImagesEqualBySingleFile(listOfImages1[i].getAbsoluteFile(), listOfImages2[i].getAbsoluteFile())) {
                 return false;
             }
         }
@@ -58,7 +58,7 @@ public class ComparatorOfImagesUtil {
      * @param file2 second file of images
      * @return true in case first image is relevant to image from the second directory, otherwise return false
      */
-    public static boolean imagesAreEqualBySingleFile(final File file1, final File file2) {
+    public static boolean areImagesEqualBySingleFile(final File file1, final File file2) {
         BufferedImage image1;
         BufferedImage image2;
 

@@ -26,13 +26,13 @@ public class MarsPhotoTest {
     @Test
     public void testImagesFromMarsPhotosService() {
         assertTrue("Images is different",
-                ComparatorOfImagesUtil.imagesAreEqual(
+                ComparatorOfImagesUtil.areImagesEqual(
                         helper.getDirectoryToImagesWithSolDate(),
                         helper.getDirectoryToImagesWithEarthDate())
         );
     }
 
-    @After
+    //@After
     public void clean() {
         helper.removeDirectoriesWithPhotosFromMars();
     }

@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 public class MarsPhotoHelper {
 
-    private int sol = Integer.valueOf(PropertyReaderUtil.getProperty("sol"));
+    private int sol = Integer.parseInt(PropertyReaderUtil.getProperty("sol"));
     private String dirWithEarthDateImages = PropertyReaderUtil.getProperty("photos.earth.date.dir");
     private String dirWithSolDateImages = PropertyReaderUtil.getProperty("photos.sol.dir");
     private String roverName = PropertyReaderUtil.getProperty("rover.name");
-    private int quantity = Integer.valueOf(PropertyReaderUtil.getProperty("photos.quantity"));
+    private int quantity = Integer.parseInt(PropertyReaderUtil.getProperty("photos.quantity"));
     private String baseUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos";
     private String apiKey = "rGltefJ0QxYGVJr9Tx7vfbC2sGSh86qCJjqRGbpe";
 
@@ -29,12 +29,12 @@ public class MarsPhotoHelper {
         FileUtil.removeDirectory(dirWithEarthDateImages);
     }
 
-    public File getDirectoryToImagesWithSolDate(){
-        return new File(dirWithEarthDateImages);
+    public File getDirectoryToImagesWithSolDate() {
+        return new File("src\\test\\resources\\" + dirWithEarthDateImages);
     }
 
-    public File getDirectoryToImagesWithEarthDate(){
-        return new File(dirWithEarthDateImages);
+    public File getDirectoryToImagesWithEarthDate() {
+        return new File("src\\test\\resources\\" + dirWithEarthDateImages);
     }
 
     /**

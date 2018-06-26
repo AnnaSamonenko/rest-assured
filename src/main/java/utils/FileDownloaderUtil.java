@@ -25,11 +25,11 @@ public class FileDownloaderUtil {
      * @param urls   is a list of URLs to files
      */
     public static void downloadFile(final String folder, final List<String> urls) {
-        File dir = new File(folder);
+        File dir = new File("src\\test\\resources\\" + folder);
         FileUtil.createDir(dir);
         if (dir.exists()) {
             for (String s : urls)
-                downloadFile(folder, s);
+                downloadFile(dir.getPath(), s);
         } else {
             logger.error("Folder is not created");
         }
