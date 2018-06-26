@@ -1,4 +1,7 @@
-package model;
+package model.dto;
+
+import model.dto.BaseDTO;
+import model.dto.CamerasDTO;
 
 import java.util.List;
 

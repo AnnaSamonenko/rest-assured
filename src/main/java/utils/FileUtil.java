@@ -6,14 +6,14 @@ import java.io.File;
 
 
 /**
- * <h1>FileUtils provide functions for work with files.</>
+ * <h1>FileUtil provide functions for work with files.</>
  * For removing directory.
  */
-public class FileUtils {
+public class FileUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparatorOfImages.class);
+    private static final Logger logger = Logger.getLogger(ComparatorOfImagesUtil.class);
 
-    private FileUtils() {
+    private FileUtil() {
     }
 
     /**
@@ -35,6 +35,16 @@ public class FileUtils {
         if (!directory.delete()) {
             logger.error("Can't remove directories");
         }
+    }
+
+    /**
+     * This method is used for creating directory.
+     *
+     * @param file is the directory
+     * @return true in case folder is created, otherwise - false
+     */
+    public static boolean createDir(final File file) {
+        return file.mkdir();
     }
 
 }

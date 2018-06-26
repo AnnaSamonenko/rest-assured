@@ -8,14 +8,14 @@ import javax.imageio.*;
 
 /**
  * <h1>Comparator of images.</>
- * The ComparatorOfImages provide function for comparing images.
+ * The ComparatorOfImagesUtil provide function for comparing images.
  */
-public class ComparatorOfImages {
+public class ComparatorOfImagesUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparatorOfImages.class);
+    private static final Logger logger = Logger.getLogger(ComparatorOfImagesUtil.class);
 
 
-    private ComparatorOfImages() {
+    private ComparatorOfImagesUtil() {
     }
 
     /**
@@ -58,7 +58,7 @@ public class ComparatorOfImages {
      * @param file2 second file of images
      * @return true in case first image is relevant to image from the second directory, otherwise return false
      */
-    private static boolean imagesAreEqualBySingleFile(final File file1, final File file2) {
+    public static boolean imagesAreEqualBySingleFile(final File file1, final File file2) {
         BufferedImage image1;
         BufferedImage image2;
 

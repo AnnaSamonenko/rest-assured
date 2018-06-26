@@ -8,15 +8,15 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * <h1>PropertyReader is for reading properties file.</>
- * The PropertyReader provide function for getting value by specified key from the property file.
+ * <h1>PropertyReaderUtil is for reading properties file.</>
+ * The PropertyReaderUtil provide function for getting value by specified key from the property file.
  */
-public class PropertyReader {
+public class PropertyReaderUtil {
 
     private static Properties properties = new Properties();
-    private static final Logger logger = Logger.getLogger(PropertyReader.class);
+    private static final Logger logger = Logger.getLogger(PropertyReaderUtil.class);
 
-    private PropertyReader() {
+    private PropertyReaderUtil() {
     }
 
     /**
