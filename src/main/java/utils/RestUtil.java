@@ -10,7 +10,7 @@ public class RestUtil {
     private RestUtil() {
     }
 
-    public static Response receiveResponseByGet(RequestSpecification reqSpec) {
+    public static Response getResponse(RequestSpecification reqSpec) {
         return given()
                 .spec(reqSpec)
                 .when()

@@ -3,6 +3,7 @@ package utils;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -13,7 +14,8 @@ import java.util.Properties;
  */
 public class PropertyReaderUtil {
 
-    private static Properties properties = new Properties();
+    private static Properties properties;
+    private static String PATH = "src\\test\\resources\\static.properties";
     private static final Logger logger = Logger.getLogger(PropertyReaderUtil.class);
 
     private PropertyReaderUtil() {
@@ -26,12 +28,22 @@ public class PropertyReaderUtil {
      * @return the value
      */
     public static String getProperty(final String key) {
-        try (InputStream inputStream = new FileInputStream("src\\test\\resources\\static.properties")) {
+        if (properties == null) {
+            loadProperties();
+        }
+        return properties.getProperty(key);
+    }
+
+
+    private static void loadProperties() {
+        properties = new Properties();
+        try {
+            InputStream inputStream = new FileInputStream(PATH);
             properties.load(inputStream);
-            return properties.getProperty(key);
-        } catch (IOException ex) {
-            logger.error(ex);
-            return ex.getMessage();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
         }
     }
+
 }
+

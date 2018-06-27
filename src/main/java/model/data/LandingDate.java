@@ -10,7 +10,7 @@ public enum LandingDate {
         this.date = date;
     }
 
-    public String date() {
+    public String getDate() {
         return date;
     }
 

@@ -11,7 +11,7 @@ import java.io.File;
  */
 public class FileUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparatorOfImagesUtil.class);
+    private static final Logger logger = Logger.getLogger(CompareImageUtil.class);
 
     private FileUtil() {
     }

@@ -8,14 +8,14 @@ import javax.imageio.*;
 
 /**
  * <h1>Comparator of images.</>
- * The ComparatorOfImagesUtil provide function for comparing images.
+ * The CompareImageUtil provide function for comparing images.
  */
-public class ComparatorOfImagesUtil {
+public class CompareImageUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparatorOfImagesUtil.class);
+    private static final Logger logger = Logger.getLogger(CompareImageUtil.class);
 
 
-    private ComparatorOfImagesUtil() {
+    private CompareImageUtil() {
     }
 
     /**
@@ -26,14 +26,12 @@ public class ComparatorOfImagesUtil {
      * @return true in case images in first directory is relevant
      * to images from the second directory, otherwise return false
      */
-    public static boolean areImagesEqual(final File folder1, final File folder2) {
+    public static boolean areImagesInDirectoriesEqual(final File folder1, final File folder2) {
         if (!folder1.isDirectory() || !folder2.isDirectory()) {
             logger.error("There no such folder");
-            System.exit(1);
         }
         if (folder1.listFiles() == null || folder2.listFiles() == null) {
             logger.error("One of folders is empty");
-            System.exit(1);
         }
         boolean isEquals = true;
         File[] listOfImages1 = folder1.listFiles();
@@ -44,7 +42,7 @@ public class ComparatorOfImagesUtil {
         }
 
         for (int i = 0; i < listOfImages1.length; i++) {
-            if (!areImagesEqualBySingleFile(listOfImages1[i].getAbsoluteFile(), listOfImages2[i].getAbsoluteFile())) {
+            if (!areImagesEqual(listOfImages1[i].getAbsoluteFile(), listOfImages2[i].getAbsoluteFile())) {
                 return false;
             }
         }
@@ -58,7 +56,7 @@ public class ComparatorOfImagesUtil {
      * @param file2 second file of images
      * @return true in case first image is relevant to image from the second directory, otherwise return false
      */
-    public static boolean areImagesEqualBySingleFile(final File file1, final File file2) {
+    public static boolean areImagesEqual(final File file1, final File file2) {
         BufferedImage image1;
         BufferedImage image2;
 

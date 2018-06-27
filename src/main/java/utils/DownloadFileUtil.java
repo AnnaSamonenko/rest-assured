@@ -8,14 +8,14 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * <h1>FileDownloaderUtil for download files.</>
- * The FileDownloaderUtil provide function for download files by URL.
+ * <h1>DownloadFileUtil for download files.</>
+ * The DownloadFileUtil provide function for download files by URL.
  */
-public class FileDownloaderUtil {
+public class DownloadFileUtil {
 
     private static final Logger logger = Logger.getLogger(PropertyReaderUtil.class);
 
-    private FileDownloaderUtil() {
+    private DownloadFileUtil() {
     }
 
     /**
