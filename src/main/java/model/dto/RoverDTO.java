@@ -1,11 +1,8 @@
 package model.dto;
 
-import model.dto.BaseDTO;
-import model.dto.CamerasDTO;
-
 import java.util.List;
 
-public class RoverDTO extends BaseDTO {
+class RoverDTO extends BaseDTO {
     private int id;
     private String name;
     private String landing_date;

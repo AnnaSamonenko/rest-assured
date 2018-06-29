@@ -1,6 +1,6 @@
 package model.dto;
 
-public class CamerasDTO extends BaseDTO {
+class CamerasDTO extends BaseDTO {
     private String name;
     private String full_name;
 }

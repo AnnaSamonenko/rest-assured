@@ -1,6 +1,7 @@
 package utils;
 
-import model.data.LandingDate;
+import model.data.RoverLandingDate;
+import org.apache.log4j.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,8 @@ import java.util.Date;
  * The ConvertDateUtil provide function for converting sol to earth getDate.
  */
 public class ConvertDateUtil {
+
+    private static final Logger LOGGER = Logger.getLogger(ConvertDateUtil.class);
 
     private ConvertDateUtil() {
     }
@@ -29,11 +32,11 @@ public class ConvertDateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar earthDate = Calendar.getInstance();
         try {
-            Date landingDate = sdf.parse(LandingDate.valueOf(roverName.toUpperCase()).getDate());
+            Date landingDate = sdf.parse(RoverLandingDate.valueOf(roverName.toUpperCase()).getDate());
             earthDate.setTime(landingDate);
             earthDate.add(Calendar.DATE, convertSolToEarthDay(sol));
         } catch (ParseException ex) {
-            //TODO: logger need to be here
+            LOGGER.error(ex.getMessage());
         }
         return sdf.format(earthDate.getTime());
     }

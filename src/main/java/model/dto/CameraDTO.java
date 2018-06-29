@@ -2,7 +2,7 @@ package model.dto;
 
 import lombok.Getter;
 
-public class CameraDTO extends BaseDTO {
+class CameraDTO extends BaseDTO {
     private int id;
     @Getter
     private String name;

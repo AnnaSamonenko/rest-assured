@@ -11,37 +11,64 @@ import java.util.stream.Collectors;
 
 public class MarsPhotoHelper {
 
-    private String dirWithEarthDateImages = PropertyReaderUtil.getProperty("photos.earth.date.dir");
-    private String dirWithSolDateImages = PropertyReaderUtil.getProperty("photos.sol.dir");
-    private String roverName = PropertyReaderUtil.getProperty("rover.name");
-    private String path = "src\\test\\resources\\";
+    /**
+     * Title of directory which will contain photos from mars-photo service with earth_date parameter.
+     */
+    private String dirWithEarthDatePhotos = PropertyReaderUtil.getProperty("photos.earth.date.dir");
 
-    public void downloadImagesOfMars(int N, int sol) {
-        String earthDate = ConvertDateUtil.countEarthDate(sol, roverName);
-        DownloadFileUtil.downloadFile(dirWithEarthDateImages, getUrlsFromPhotoDtosByEarthDate(N, earthDate));
-        DownloadFileUtil.downloadFile(dirWithSolDateImages, getUrlsFromPhotoDtosBySolDate(N, sol));
+    /**
+     * Title of directory which will contain photos from mars-photo service with sol parameter.
+     */
+    private String dirWithSolDatePhotos = PropertyReaderUtil.getProperty("photos.sol.dir");
+
+    /**
+     * Path to resource folder which will contain directories with photos from mars-photo service.
+     */
+    private static final String PATH = "src\\test\\resources\\";
+
+    /**
+     * Method which download defined quantity of photos from mars-photos service.
+     *
+     * @param quantity  is amount of photos.
+     * @param sol       is a duration of a sonar day on Mars.
+     * @param earthDate is a earth date in yyyy-MM-dd format.
+     */
+    public void downloadFirstNImagesOfMars(int quantity, int sol, String earthDate) {
+        DownloadFileUtil.downloadFile(dirWithEarthDatePhotos, getUrlsFromPhotoDtosByEarthDate(quantity, earthDate));
+        DownloadFileUtil.downloadFile(dirWithSolDatePhotos, getUrlsFromPhotoDtosBySolDate(quantity, sol));
     }
 
+    /**
+     * Method for removing directories with photos.
+     */
     public void removeDirectoriesWithPhotosOfMars() {
-        FileUtil.removeDirectory(path + dirWithSolDateImages);
-        FileUtil.removeDirectory(path + dirWithEarthDateImages);
+        FileUtil.removeDirectory(PATH + dirWithSolDatePhotos);
+        FileUtil.removeDirectory(PATH + dirWithEarthDatePhotos);
     }
 
-    public File getDirectoryToImagesWithSolDate() {
-        return new File(path + dirWithEarthDateImages);
+    /**
+     * @return new File instance of directory with sol date photos.
+     */
+    public File getDirectoryWithImagesBySolDate() {
+        return new File(PATH + dirWithEarthDatePhotos);
     }
 
-    public File getDirectoryToImagesWithEarthDate() {
-        return new File(path + dirWithEarthDateImages);
+    /**
+     * @return new File instance of directory with earth date photos.
+     */
+    public File getDirectoryWithImagesByEarthDate() {
+        return new File(PATH + dirWithEarthDatePhotos);
     }
 
     /**
      * Method for get url to images
      *
+     * @param quantity is amount of photos.
+     * @param sol      is a duration of a sonar day on Mars.
      * @return list with images
      */
-    private List<String> getUrlsFromPhotoDtosBySolDate(int N, int sol) {
-        return takeFirstNPhotosDtosBySolDate(N, sol)
+    private List<String> getUrlsFromPhotoDtosBySolDate(int quantity, int sol) {
+        return takeFirstNPhotoDtosBySolDate(quantity, sol)
                 .stream()
                 .map(PhotoDTO::getImg_src)
                 .collect(Collectors.toList());
@@ -50,10 +77,12 @@ public class MarsPhotoHelper {
     /**
      * Method for get url to images
      *
+     * @param quantity  is amount of photos.
+     * @param earthDate is a earth date in yyyy-MM-dd format.
      * @return list with images
      */
-    private List<String> getUrlsFromPhotoDtosByEarthDate(int N, String earthDate) {
-        return takeFirstNPhotosDtoByEarthDate(N, earthDate)
+    private List<String> getUrlsFromPhotoDtosByEarthDate(int quantity, String earthDate) {
+        return takeFirstNPhotoDtosByEarthDate(quantity, earthDate)
                 .stream()
                 .map(PhotoDTO::getImg_src)
                 .collect(Collectors.toList());
@@ -61,34 +90,39 @@ public class MarsPhotoHelper {
 
     /**
      * Method for get defined quantity of photos from
-     * the mars photo endpoint with earth query param
+     * the mars photo endpoint with earth query param.
      *
-     * @return list with images
+     * @param quantity  is amount of photos.
+     * @param earthDate is a earth date in yyyy-MM-dd format.
+     * @return list of photo DTOs with defined size.
      */
-    public List<PhotoDTO> takeFirstNPhotosDtoByEarthDate(int N, String earthDate) {
+    public List<PhotoDTO> takeFirstNPhotoDtosByEarthDate(int quantity, String earthDate) {
         return parseResponseToGetPhotosMetadataByEarthDate(earthDate)
                 .stream()
-                .limit(N)
+                .limit(quantity)
                 .collect(Collectors.toList());
     }
 
     /**
      * Method for get defined quantity of photos from
-     * the mars photo endpoint with sol query param
+     * the mars-photo service with sol query parameter.
      *
-     * @return list with images
+     * @param quantity is amount of photos.
+     * @param sol      is a duration of a sonar day on Mars.
+     * @return list of photo DTOs with defined size.
      */
-    public List<PhotoDTO> takeFirstNPhotosDtosBySolDate(int N, int sol) {
+    public List<PhotoDTO> takeFirstNPhotoDtosBySolDate(int quantity, int sol) {
         return parseResponseToGetPhotosMetadataBySolDate(sol)
                 .stream()
-                .limit(N)
+                .limit(quantity)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Method for parsing response from mars-photo service with sol param
+     * Method for parsing response from mars-photo service with sol parameter.
      *
-     * @return list with images
+     * @param sol is a duration of a sonar day on Mars.
+     * @return list of photo DTOs.
      */
     private List<PhotoDTO> parseResponseToGetPhotosMetadataBySolDate(int sol) {
         return RestUtil
@@ -98,9 +132,10 @@ public class MarsPhotoHelper {
     }
 
     /**
-     * Method for parsing response from mars-photo service with earth_date param
+     * Method for parsing response from mars-photo service with earth_date parameter.
      *
-     * @return list with images
+     * @param earthDate is a earth date in yyyy-MM-dd format.
+     * @return list of photo DTOs.
      */
     private List<PhotoDTO> parseResponseToGetPhotosMetadataByEarthDate(String earthDate) {
         return RestUtil
@@ -110,11 +145,11 @@ public class MarsPhotoHelper {
     }
 
     /**
-     * Method for build url
+     * Method for build url.
      *
-     * @param paramName
-     * @param paramValue
-     * @return RequestSpecification object which will be used for build url
+     * @param paramName  is name of parameter of query string.
+     * @param paramValue is value of parameter of query string.
+     * @return RequestSpecification object which will be used for build url.
      */
     private RequestSpecification buildUrl(String paramName, String paramValue) {
         String baseUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos";
@@ -124,7 +159,6 @@ public class MarsPhotoHelper {
                 .setBaseUri(baseUrl)
                 .addQueryParam(paramName, paramValue)
                 .addQueryParam("api_key", apiKey)
-                .addParam("")
                 .build();
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DownloadFileUtil {
 
-    private static final Logger logger = Logger.getLogger(PropertyReaderUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(PropertyReaderUtil.class);
 
     private DownloadFileUtil() {
     }
@@ -31,7 +31,7 @@ public class DownloadFileUtil {
             for (String s : urls)
                 downloadFile(dir.getPath(), s);
         } else {
-            logger.error("Folder is not created");
+            LOGGER.error("Folder is not created");
         }
     }
 
@@ -52,7 +52,7 @@ public class DownloadFileUtil {
                 os.write(b, 0, length);
             }
         } catch (Exception ex) {
-            logger.error(ex);
+            LOGGER.error(ex);
         }
     }
 

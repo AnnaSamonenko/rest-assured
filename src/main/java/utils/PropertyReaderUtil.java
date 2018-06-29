@@ -3,7 +3,6 @@ package utils;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -15,8 +14,7 @@ import java.util.Properties;
 public class PropertyReaderUtil {
 
     private static Properties properties;
-    private static String PATH = "src\\test\\resources\\static.properties";
-    private static final Logger logger = Logger.getLogger(PropertyReaderUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(PropertyReaderUtil.class);
 
     private PropertyReaderUtil() {
     }
@@ -36,12 +34,14 @@ public class PropertyReaderUtil {
 
 
     private static void loadProperties() {
+        String path = "src\\test\\resources\\static.properties";
         properties = new Properties();
         try {
-            InputStream inputStream = new FileInputStream(PATH);
+            InputStream inputStream = new FileInputStream(path);
             properties.load(inputStream);
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException("Failed to read the properties from path" + path);
         }
     }
 

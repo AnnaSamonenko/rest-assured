@@ -1,11 +1,12 @@
 package tests;
 
 import helpers.MarsPhotoHelper;
-import org.junit.*;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import utils.*;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 public class MarsPhotoTest {
 
@@ -14,29 +15,32 @@ public class MarsPhotoTest {
     private int sol = Integer.parseInt(PropertyReaderUtil.getProperty("sol"));
     private String rover = PropertyReaderUtil.getProperty("rover.name");
 
-    @Before
+    @BeforeClass
     public void downloadImages() {
-        helper.downloadImagesOfMars(quantity, sol);
-    }
-
-    @Test
-    public void testMetadataFromMarsPhotosService() {
         String earthDate = ConvertDateUtil.countEarthDate(sol, rover);
-        assertEquals("Metadata from the resources is different but should be similar",
-                helper.takeFirstNPhotosDtoByEarthDate(quantity, earthDate),
-                helper.takeFirstNPhotosDtosBySolDate(quantity, sol));
+        helper.downloadFirstNImagesOfMars(quantity, sol, earthDate);
     }
 
     @Test
-    public void testImagesFromMarsPhotosService() {
-        assertTrue("Images is different",
+    public void metadataFromMarsPhotosServiceTest() {
+        String earthDate = ConvertDateUtil.countEarthDate(sol, rover);
+        Assert.assertEquals(
+                helper.takeFirstNPhotoDtosByEarthDate(quantity, earthDate),
+                helper.takeFirstNPhotoDtosBySolDate(quantity, sol),
+                "Metadata from the resources is different but should be similar");
+    }
+
+    @Test
+    public void imagesFromMarsPhotosServiceTest() {
+        Assert.assertTrue(
                 CompareImageUtil.areImagesInDirectoriesEqual(
-                        helper.getDirectoryToImagesWithSolDate(),
-                        helper.getDirectoryToImagesWithEarthDate())
+                        helper.getDirectoryWithImagesBySolDate(),
+                        helper.getDirectoryWithImagesByEarthDate()),
+                "Images are different"
         );
     }
 
-    @After
+    @AfterClass
     public void clean() {
         helper.removeDirectoriesWithPhotosOfMars();
     }
