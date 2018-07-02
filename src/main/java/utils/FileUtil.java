@@ -6,14 +6,14 @@ import java.io.File;
 
 
 /**
- * <h1>FileUtils provide functions for work with files.</>
+ * <h1>FileUtil provide functions for work with files.</>
  * For removing directory.
  */
-public class FileUtils {
+public class FileUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparatorOfImages.class);
+    private static final Logger logger = Logger.getLogger(ComparePhotoUtil.class);
 
-    private FileUtils() {
+    private FileUtil() {
     }
 
     /**

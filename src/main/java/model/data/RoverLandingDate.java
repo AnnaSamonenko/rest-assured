@@ -1,16 +1,16 @@
 package model;
 
-public enum LandingDate {
+public enum RoverLandingDate {
 
     CURIOSITY("2012-08-6");
 
     private String date;
 
-    LandingDate(String date) {
+    RoverLandingDate(String date) {
         this.date = date;
     }
 
-    public String date() {
+    public String getDate() {
         return date;
     }
 
