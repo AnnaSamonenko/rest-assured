@@ -30,7 +30,7 @@ public class FileUtil {
         try {
             Files.delete(filePath);
         } catch (IOException e) {
-            LOGGER.error("Can't find directory by with name" + dirName);
+            LOGGER.error("Can't find directory with name: " + dirName);
         }
     }
 
