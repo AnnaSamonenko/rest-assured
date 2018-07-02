@@ -9,8 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * <h1>ConvertDateUtil of sol to earth date</>
- * The ConvertDateUtil provide function for converting sol to earth date.
+ * <h1>ConvertDateUtil of sol to earth getDate</>
+ * The ConvertDateUtil provide function for converting sol to earth getDate.
  */
 public class ConvertDateUtil {
 
@@ -42,10 +42,10 @@ public class ConvertDateUtil {
     }
 
     /**
-     * This method is used for converting sol to earth date.
+     * This method is used for converting sol to earth getDate.
      *
      * @param sol is duration of a sonar day on Mars
-     * @return int of the amount of earth date
+     * @return int of the amount of earth getDate
      */
     private static int convertSolToEarthDay(final int sol) {
         return (int) (Math.round(sol * 1027.49 / 1000));

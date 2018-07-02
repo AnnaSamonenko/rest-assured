@@ -3,6 +3,10 @@ package utils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
@@ -11,7 +15,7 @@ import java.io.File;
  */
 public class FileUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparePhotoUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(FileUtil.class);
 
     private FileUtil() {
     }
@@ -22,19 +26,22 @@ public class FileUtil {
      * @param dirName name of directory
      */
     public static void removeDirectory(String dirName) {
-        File directory = new File(dirName);
-        String[] entries = directory.list();
-        if (entries.length != 0) {
-            for (String s : entries) {
-                File currentFile = new File(directory.getPath(), s);
-                if (!currentFile.delete()) {
-                    logger.error("Can't remove file in the directory");
-                }
-            }
+        Path filePath = Paths.get(dirName);
+        try {
+            Files.delete(filePath);
+        } catch (IOException e) {
+            LOGGER.error("Can't find directory by with name" + dirName);
         }
-        if (!directory.delete()) {
-            logger.error("Can't remove directories");
-        }
+    }
+
+    /**
+     * This method is used for creating directory.
+     *
+     * @param file is the directory
+     * @return true in case folder is created, otherwise - false
+     */
+    static boolean createDir(final File file) {
+        return file.mkdir();
     }
 
 }

@@ -8,47 +8,60 @@ import javax.imageio.*;
 
 /**
  * <h1>Comparator of images.</>
- * The ComparatorOfImages provide function for comparing images.
+ * The CompareImageUtil provide function for comparing images.
  */
-public class ComparatorOfImages {
+public class ComparePhotoUtil {
 
-    private static final Logger logger = Logger.getLogger(ComparatorOfImages.class);
+    private static final Logger LOGGER = Logger.getLogger(ComparePhotoUtil.class);
 
 
-    private ComparatorOfImages() {
+    private ComparePhotoUtil() {
     }
 
     /**
      * This method is used to compare images placed in the directories.
      *
-     * @param folder1 first directory with images
-     * @param folder2 second directory with images
+     * @param folder1 first directory with photos
+     * @param folder2 second directory with photos
      * @return true in case images in first directory is relevant
      * to images from the second directory, otherwise return false
      */
-    public static boolean imagesAreEqual(final File folder1, final File folder2) {
-        if (!folder1.isDirectory() || !folder2.isDirectory()) {
-            logger.error("There no such folder");
-            System.exit(1);
-        }
-        if (folder1.listFiles() == null || folder2.listFiles() == null) {
-            logger.error("One of folders is empty");
-            System.exit(1);
-        }
-        boolean isEquals = true;
-        File[] listOfImages1 = folder1.listFiles();
-        File[] listOfImages2 = folder2.listFiles();
+    public static boolean areImagesInDirectoriesEqual(final File folder1, final File folder2) {
+        if (verifyFolders(folder1, folder2)) {
+            File[] listOfImages1 = folder1.listFiles();
+            File[] listOfImages2 = folder2.listFiles();
 
-        if (listOfImages1.length != listOfImages2.length) {
-            return false;
-        }
-
-        for (int i = 0; i < listOfImages1.length; i++) {
-            if (!imagesAreEqualBySingleFile(listOfImages1[i].getAbsoluteFile(), listOfImages2[i].getAbsoluteFile())) {
-                return false;
+            for (int i = 0; i < listOfImages1.length; i++) {
+                if (!areImagesEqual(listOfImages1[i].getAbsoluteFile(), listOfImages2[i].getAbsoluteFile())) {
+                    return false;
+                }
             }
+            return true;
+        } else return false;
+    }
+
+    /**
+     * Method which verify folders: that folders exist,
+     * files are present and
+     * amount of files are equals.
+     *
+     * @param folder1 first directory with photos
+     * @param folder2 second directory with photos
+     * @return true in case folders satisfied requirements, otherwise false.
+     */
+
+    private static boolean verifyFolders(final File folder1, final File folder2) {
+        if (!folder1.isDirectory() || !folder2.isDirectory()) {
+            LOGGER.error("There no such folder");
+            throw new IllegalStateException();
         }
-        return isEquals;
+
+        if (folder1.listFiles() == null || folder2.listFiles() == null) {
+            LOGGER.error("One of folders is empty");
+            throw new IllegalStateException();
+        } else {
+            return folder1.listFiles().length == folder2.listFiles().length;
+        }
     }
 
     /**
@@ -58,7 +71,7 @@ public class ComparatorOfImages {
      * @param file2 second file of images
      * @return true in case first image is relevant to image from the second directory, otherwise return false
      */
-    private static boolean imagesAreEqualBySingleFile(final File file1, final File file2) {
+    private static boolean areImagesEqual(final File file1, final File file2) {
         BufferedImage image1;
         BufferedImage image2;
 
@@ -66,7 +79,7 @@ public class ComparatorOfImages {
             image1 = ImageIO.read(file1);
             image2 = ImageIO.read(file2);
         } catch (Exception e) {
-            logger.error(e);
+            LOGGER.error(e.getMessage());
             return false;
         }
 

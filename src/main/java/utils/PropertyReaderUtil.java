@@ -13,8 +13,8 @@ import java.util.Properties;
  */
 public class PropertyReaderUtil {
 
-    private static Properties properties = new Properties();
-    private static final Logger logger = Logger.getLogger(PropertyReaderUtil.class);
+    private static Properties properties;
+    private static final Logger LOGGER = Logger.getLogger(PropertyReaderUtil.class);
 
     private PropertyReaderUtil() {
     }
@@ -26,12 +26,22 @@ public class PropertyReaderUtil {
      * @return the value
      */
     public static String getProperty(final String key) {
-        try (InputStream inputStream = new FileInputStream("src\\main\\resources\\static.properties")) {
+        if (properties == null) {
+            loadProperties();
+        }
+        return properties.getProperty(key);
+    }
+
+    private static void loadProperties() {
+        String path = "src\\test\\resources\\static.properties";
+        properties = new Properties();
+        try {
+            InputStream inputStream = new FileInputStream(path);
             properties.load(inputStream);
-            return properties.getProperty(key);
-        } catch (IOException ex) {
-            logger.error(ex);
-            return ex.getMessage();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException("Failed to read the properties from path: " + path);
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package model;
+package model.dto;
 
 public class CamerasDTO extends BaseDTO {
     private String name;

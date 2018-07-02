@@ -1,8 +1,7 @@
-package tests;
-
 import model.dto.PhotoDTO;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +44,7 @@ public class MarsPhotoServiceTest {
     public void verifyPhotosOfMarsPhotoService() {
         File file1 = new File(earthDateDirectoryName);
         File file2 = new File(solDateDirectoryName);
-        ComparePhotoUtil.areImagesInDirectoriesEqual(file1, file2);
+        Assert.assertTrue(ComparePhotoUtil.areImagesInDirectoriesEqual(file1, file2));
     }
 
     @After

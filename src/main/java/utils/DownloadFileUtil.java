@@ -8,30 +8,30 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * <h1>Downloader for download images.</>
- * The Downloader provide function for download images by URL.
+ * <h1>DownloadFileUtil for download files.</>
+ * The DownloadFileUtil provide function for download files by URL.
  */
-public class Downloader {
+public class DownloadFileUtil {
 
-    private static final Logger logger = Logger.getLogger(PropertyReader.class);
+    private static final Logger LOGGER = Logger.getLogger(DownloadFileUtil.class);
 
-    private Downloader() {
+    private DownloadFileUtil() {
     }
 
     /**
      * This method is used for downloading images.
      *
-     * @param folder destination folder for downloaded images
-     * @param urls   is a list of URLs to images
+     * @param folder destination folder for downloaded files
+     * @param urls   is a list of URLs to files
      */
-    public static void downloadPictures(final String folder, final List<String> urls) {
-        File dir = new File(folder);
-        createDir(dir);
+    public static void downloadFile(final String folder, final List<String> urls) {
+        File dir = new File("src\\test\\resources\\" + folder);
+        FileUtil.createDir(dir);
         if (dir.exists()) {
             for (String s : urls)
-                downloadPicture(folder, s);
+                downloadFile(dir.getPath(), s);
         } else {
-            logger.error("Folder is not created");
+            LOGGER.error("Folder is not created");
         }
     }
 
@@ -41,9 +41,9 @@ public class Downloader {
      * @param folder   destination folder for downloaded image
      * @param imageUrl is a URL to a single image
      */
-    private static void downloadPicture(final String folder, final String imageUrl) {
+    private static void downloadFile(final String folder, final String imageUrl) {
         try (InputStream is = new URL(imageUrl).openStream();
-             OutputStream os = new FileOutputStream(folder + "/" + getImageTitle(imageUrl))) {
+             OutputStream os = new FileOutputStream(folder + "/" + getFileTitle(imageUrl))) {
 
             byte[] b = new byte[2048];
             int length;
@@ -52,7 +52,7 @@ public class Downloader {
                 os.write(b, 0, length);
             }
         } catch (Exception ex) {
-            logger.error(ex);
+            LOGGER.error(ex);
         }
     }
 
@@ -62,21 +62,11 @@ public class Downloader {
      * @param imageUrl is a URL to a single image
      * @return the list of image titles
      */
-    private static String getImageTitle(final String imageUrl) throws MalformedURLException {
+    private static String getFileTitle(final String imageUrl) throws MalformedURLException {
         URL url = new URL(imageUrl);
         String urlFile = url.getFile();
         String[] urlFileList = urlFile.split("/");
         return urlFileList[urlFileList.length - 1];
-    }
-
-    /**
-     * This method is used for creating directory.
-     *
-     * @param file is the directory
-     * @return true in case folder is created, otherwise - false
-     */
-    private static boolean createDir(final File file) {
-        return file.mkdir();
     }
 
 }
