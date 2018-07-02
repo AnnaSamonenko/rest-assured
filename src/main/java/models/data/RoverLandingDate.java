@@ -1,4 +1,4 @@
-package model.data;
+package models.data;
 
 public enum RoverLandingDate {
 

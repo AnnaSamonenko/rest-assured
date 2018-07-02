@@ -11,7 +11,7 @@ import java.util.List;
  * <h1>DownloadFileUtil for download files.</>
  * The DownloadFileUtil provide function for download files by URL.
  */
-public class DownloadFileUtil {
+public class DownloadFileUtil{
 
     private static final Logger LOGGER = Logger.getLogger(DownloadFileUtil.class);
 

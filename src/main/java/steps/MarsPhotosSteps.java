@@ -1,8 +1,7 @@
 package steps;
 
-import model.dto.PhotoDTO;
+import models.dto.PhotoDTO;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
 import resources.MarsPhotosEndpoint;
 
 import java.util.*;
@@ -13,7 +12,7 @@ public class MarsPhotosSteps {
     private MarsPhotosEndpoint endpoint = new MarsPhotosEndpoint();
 
     @Step
-    public List<PhotoDTO> getPhotos(final String roverName, final String earthDate, final int quantity) {
+    public List<PhotoDTO> getMetadataByEarthDate(final String roverName, final String earthDate, final int quantity) {
         return endpoint
                 .get(roverName, earthDate)
                 .stream()
@@ -22,7 +21,7 @@ public class MarsPhotosSteps {
     }
 
     @Step
-    public List<PhotoDTO> getPhotos(final String roverName, final int sol, final int quantity) {
+    public List<PhotoDTO> getMetadataBySolDate(final String roverName, final int sol, final int quantity) {
         return endpoint
                 .get(roverName, sol)
                 .stream()
@@ -32,7 +31,7 @@ public class MarsPhotosSteps {
 
     @Step
     public List<String> getListOfUrls(final String roverName, final int sol, final int quantity) {
-        return getPhotos(roverName, sol, quantity)
+        return getMetadataBySolDate(roverName, sol, quantity)
                 .stream()
                 .limit(quantity)
                 .map(PhotoDTO::getImg_src)
@@ -41,7 +40,7 @@ public class MarsPhotosSteps {
 
     @Step
     public List<String> getListOfUrls(final String roverName, final String date, final int quantity) {
-        return getPhotos(roverName, date, quantity)
+        return getMetadataByEarthDate(roverName, date, quantity)
                 .stream()
                 .limit(quantity)
                 .map(PhotoDTO::getImg_src)

@@ -1,6 +1,6 @@
 package resources;
 
-import model.dto.PhotoDTO;
+import models.dto.PhotoDTO;
 import io.restassured.http.ContentType;
 
 import java.util.List;
