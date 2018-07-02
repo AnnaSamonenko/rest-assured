@@ -32,8 +32,8 @@ public class MarsPhotoHelper {
     }
 
     public void removeDirectoriesWithPhotos() {
-        FileUtil.removeDirectory(earthDateDirectoryName);
-        FileUtil.removeDirectory(solDateDirectoryName);
+        FileUtil.removeDirectory(PATH + earthDateDirectoryName);
+        FileUtil.removeDirectory(PATH + solDateDirectoryName);
     }
 
 
