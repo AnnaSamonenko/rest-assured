@@ -14,7 +14,7 @@ public class MarsPhotoHelper {
 
     private String earthDateDirectoryName = PropertyReaderUtil.getProperty("photos.earth.date.dir");
     private String solDateDirectoryName = PropertyReaderUtil.getProperty("photos.sol.dir");
-    private final String PATH = "src\\test\\resources\\";
+    private static final String PATH = "src\\test\\resources\\";
 
     public void downloadPhotos(String roverName, int sol, int amount) {
         DownloadFileUtil.downloadFile(earthDateDirectoryName,

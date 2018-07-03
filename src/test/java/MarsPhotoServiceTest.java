@@ -28,7 +28,8 @@ public class MarsPhotoServiceTest {
     @Test
     public void verifyMetadataOfMarsPhotoService() {
         List<PhotoDTO> actualPhotosWithSolDate = marsPhotosSteps.getMetadataBySolDate(roverName, sol, amount);
-        List<PhotoDTO> actualPhotosWithEarthDate = marsPhotosSteps.getMetadataByEarthDate(roverName, ConvertDateUtil.countEarthDate(sol, roverName), amount);
+        List<PhotoDTO> actualPhotosWithEarthDate = marsPhotosSteps.getMetadataByEarthDate(roverName,
+                ConvertDateUtil.countEarthDate(sol, roverName), amount);
 
         assertEquals("Metadata from the resources is different but should be similar",
                 actualPhotosWithEarthDate,
@@ -37,9 +38,10 @@ public class MarsPhotoServiceTest {
 
     @Test
     public void verifyPhotosOfMarsPhotoService() {
-        File file1 = marsPhotoHelper.getDirectoryWithEarthDatePhotos();
-        File file2 = marsPhotoHelper.getDirectoryWithSolDatePhotos();
-        Assert.assertTrue(ComparePhotoUtil.areImagesInDirectoriesEqual(file1, file2));
+        File directoryWithEarthDatePhotos = marsPhotoHelper.getDirectoryWithEarthDatePhotos();
+        File directoryWithSolDatePhotos = marsPhotoHelper.getDirectoryWithSolDatePhotos();
+        Assert.assertTrue(ComparePhotoUtil.areImagesInDirectoriesEqual(directoryWithEarthDatePhotos,
+                directoryWithSolDatePhotos));
     }
 
     @After
