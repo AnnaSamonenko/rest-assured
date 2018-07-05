@@ -3,6 +3,7 @@ package steps;
 import models.dto.PhotoDTO;
 import net.thucydides.core.annotations.Step;
 import resources.MarsPhotosEndpoint;
+import utils.JsonParseUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,8 +14,8 @@ public class MarsPhotosSteps {
 
     @Step
     public List<PhotoDTO> getMetadataByEarthDate(final String roverName, final String earthDate, final int quantity) {
-        return endpoint
-                .get(roverName, earthDate)
+        return JsonParseUtil.parseJson(endpoint
+                .get(roverName, earthDate))
                 .stream()
                 .limit(quantity)
                 .collect(Collectors.toList());
@@ -22,8 +23,7 @@ public class MarsPhotosSteps {
 
     @Step
     public List<PhotoDTO> getMetadataBySolDate(final String roverName, final int sol, final int quantity) {
-        return endpoint
-                .get(roverName, sol)
+        return JsonParseUtil.parseJson(endpoint.get(roverName, sol))
                 .stream()
                 .limit(quantity)
                 .collect(Collectors.toList());

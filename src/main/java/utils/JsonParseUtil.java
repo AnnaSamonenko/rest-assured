@@ -1,24 +1,21 @@
-package util;
+package utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.Person;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import io.restassured.response.Response;
+import models.dto.PhotoDTO;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 public class JsonParseUtil {
 
     private JsonParseUtil() {
     }
 
-    public static Person parseJson(String file) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(new File(file), Person.class);
-        } catch (IOException ex) {
-            ex.getMessage();
-            throw new IllegalStateException();
-        }
+    public static List<PhotoDTO> parseJson(Response response) {
+        JsonParser parser = new JsonParser();
+        JsonElement jsonOfPhotos = parser.parse(response.body().asString()).getAsJsonObject().get("photos");
+        return null;
     }
 
 }
