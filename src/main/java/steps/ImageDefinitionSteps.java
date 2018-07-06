@@ -3,7 +3,7 @@ package steps;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import model.PhotoDTO;
-import utils.process.ProcessData;
+import helper.MarsPhotoHelper;
 import utils.ComparatorOfImages;
 import utils.Converter;
 import utils.Downloader;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ImageDefinitionSteps {
-    private ProcessData processData = new ProcessData();
+    private MarsPhotoHelper processData = new MarsPhotoHelper();
     private List<PhotoDTO> expectedPhotosWithEarthDate;
     private List<PhotoDTO> expectedPhotosWithSolDate;
 

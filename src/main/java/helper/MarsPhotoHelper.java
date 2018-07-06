@@ -1,4 +1,4 @@
-package utils.process;
+package helper;
 
 import model.PhotoDTO;
 import resources.MarsPhotoEndpoint;
@@ -7,7 +7,7 @@ import resources.MarsPhotoEndpoint;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ProcessData {
+public class MarsPhotoHelper {
 
     private MarsPhotoEndpoint endpoint = new MarsPhotoEndpoint();
 
