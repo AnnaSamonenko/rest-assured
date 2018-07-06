@@ -14,26 +14,18 @@ public class MarsPhotosSteps {
 
     @Step
     public List<PhotoDTO> getMetadataByEarthDate(final String roverName, final String earthDate, final int quantity) {
-        return JsonParseUtil.parseJson(endpoint
-                .get(roverName, earthDate))
-                .stream()
-                .limit(quantity)
-                .collect(Collectors.toList());
+        return JsonParseUtil.parseJson(endpoint.get(roverName, earthDate), quantity);
     }
 
     @Step
     public List<PhotoDTO> getMetadataBySolDate(final String roverName, final int sol, final int quantity) {
-        return JsonParseUtil.parseJson(endpoint.get(roverName, sol))
-                .stream()
-                .limit(quantity)
-                .collect(Collectors.toList());
+        return JsonParseUtil.parseJson(endpoint.get(roverName, sol), quantity);
     }
 
     @Step
     public List<String> getListOfUrls(final String roverName, final int sol, final int quantity) {
         return getMetadataBySolDate(roverName, sol, quantity)
                 .stream()
-                .limit(quantity)
                 .map(PhotoDTO::getImg_src)
                 .collect(Collectors.toList());
     }
@@ -42,7 +34,6 @@ public class MarsPhotosSteps {
     public List<String> getListOfUrls(final String roverName, final String date, final int quantity) {
         return getMetadataByEarthDate(roverName, date, quantity)
                 .stream()
-                .limit(quantity)
                 .map(PhotoDTO::getImg_src)
                 .collect(Collectors.toList());
     }

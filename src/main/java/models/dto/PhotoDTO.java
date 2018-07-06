@@ -1,14 +1,15 @@
 package models.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class PhotoDTO extends BaseDTO {
     private long id;
     private int sol;
-    @Getter
     private String img_src;
     private String earth_date;
-    @Getter
     private CameraDTO camera;
-    private RoverDTO roverDTO;
+    private RoverDTO rover;
 }
